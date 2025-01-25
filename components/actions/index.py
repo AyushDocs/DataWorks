@@ -131,7 +131,7 @@ def find_similar_comments(params: dict):
         "Content-Type": "application/json"
     }
     data = {
-        "model": "text-embedding-ada-002",  # Use OpenAI's Ada embedding model
+        "model": "text-embedding-3-small",  # Use OpenAI's Ada embedding model
         "input": comments  # List of comments to get embeddings for
     }
     response = requests.post(url, headers=headers, json=data)
