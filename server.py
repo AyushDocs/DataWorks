@@ -2,7 +2,7 @@ import os
 import json
 from flask import Flask, request, jsonify,render_template
 from dotenv import load_dotenv
-
+from tools import query_gpt
 load_dotenv()
 app = Flask(__name__)
 
@@ -14,8 +14,8 @@ def index():
 @app.route('/run', methods=['POST'])
 def run_task():
     task_description = request.args.get('task')
-    
     try:
+        query_gpt(task_description)
         return jsonify({"message": "Task executed successfully"}), 200
 
     except Exception as e:
@@ -35,6 +35,7 @@ def read_file():
     
     with open(file_path, 'r') as file:
         file_content = file.read()
+
     
     return file_content, 200
 
