@@ -26,3 +26,4 @@ Executes a plain-English task. The agent will parse the task description, execut
 
 ```bash
 POST /run?task=Install+uv+and+run+datagen.py+with+${user.email}
+```
