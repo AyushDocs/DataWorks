@@ -1,6 +1,5 @@
-import os
-import json
 from flask import Flask, request, jsonify,render_template
+from components.services.ReadFileService import ReadFileService
 from dotenv import load_dotenv
 from tools import query_gpt
 load_dotenv()
@@ -24,20 +23,8 @@ def run_task():
 
 @app.route('/read', methods=['GET'])
 def read_file():
-    file_path = request.args.get('path')
-    abs_file_path = os.path.abspath(file_path)
-    abs_parent_directory = os.path.abspath('data')
-    if not os.path.commonpath([abs_file_path, abs_parent_directory]) == abs_parent_directory:
-        return "Error file requested is outside of data directory",401
-
-    if not os.path.exists(file_path):
-        return "", 404
-    
-    with open(file_path, 'r') as file:
-        file_content = file.read()
-
-    
-    return file_content, 200
+    file_path=request.args.get('path')
+    return ReadFileService.read_file(file_path)
 
 if __name__ == '__main__':
     app.run(debug=True)
