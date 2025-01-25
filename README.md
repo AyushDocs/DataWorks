@@ -12,6 +12,11 @@ DataWorks Solutions processes large volumes of log files, reports, and code arti
 - **Phase B**: Handles business tasks such as API calls, database queries, image manipulation, and more.
 - **Security Considerations**: Ensures data access is restricted to only files within the `/data` directory and prevents data deletion.
 
+## RUN PROJECT
+```bash
+docker run -e AIPROXYTOKEN=your_actual_token -p 5000:5000 DataWorks
+```
+
 ## API Endpoints
 
 ### `POST /run?task=<task description>`
@@ -27,3 +32,4 @@ Executes a plain-English task. The agent will parse the task description, execut
 ```bash
 POST /run?task=Install+uv+and+run+datagen.py+with+${user.email}
 ```
+
