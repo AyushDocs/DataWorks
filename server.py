@@ -1,6 +1,6 @@
 from flask import Flask, request, jsonify, render_template
 from components.services.ReadFileService import ReadFileService
-from components.services.GPTQuerier import GPTQuerier
+from components.services.OperationsTaskHandler import GPTQuerier
 from dotenv import load_dotenv
 
 load_dotenv()

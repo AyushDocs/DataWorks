@@ -2,28 +2,10 @@ import base64
 import requests
 import os
 import json
-import os
-import json
 import subprocess
-import datetime
-import csv
 from sklearn.metrics.pairwise import cosine_similarity
-import re
 import sqlite3
 import numpy as np
-from typing import List
-import requests
-from dateutil.parser import parse
-
-import subprocess
-import os
-import json
-import requests
-import base64
-import sqlite3
-from sklearn.metrics.pairwise import cosine_similarity
-import numpy as np
-from typing import List
 from dateutil.parser import parse
 
 def run_script(params: dict):
