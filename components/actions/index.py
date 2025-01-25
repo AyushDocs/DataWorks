@@ -155,7 +155,7 @@ def extract_sender_email(params: dict):
     with open(input_file, 'r') as f:
         email_text = f.read()
     response = requests.post(
-        url="https://aiproxy.sanand.workers.dev/openai/v1/chat/completions",
+        url="/v1/chat/completions",
         headers={"Authorization": f"Bearer {os.environ.get('AI_API_KEY')}"},
         json={"model": "gpt-4o-mini", "messages": [{"role": "system", "content": "Identify the sender of email from the following text"},
                                                    {"role": "user", "content": email_text}]}
