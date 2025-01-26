@@ -1,4 +1,4 @@
-from components.actions import (
+from components.actions.OperationActions import (
     calculate_gold_ticket_sales,
     count_wednesdays,
     extract_credit_card_number,

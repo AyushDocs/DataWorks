@@ -6,7 +6,7 @@ from PIL import Image
 import markdown
 import sqlite3
 import duckdb
-
+import io
 
 class ImageOperation(Enum):
     COMPRESS = "compress"
@@ -101,3 +101,23 @@ def convert_markdown_to_html(data: dict) -> bool:
     with open(output_path, "w") as html_file:
         html_file.write(html_content)
     return True
+
+
+def filter_csv_business_logic(input_data: dict) -> dict:
+    try:
+        file_content = input_data.get('file_content')
+        filter_column = input_data.get('filter_column')
+        filter_value = input_data.get('filter_value')
+        if not file_content:
+            return {"error": "file_content is required"}
+        if not filter_column or not filter_value:
+            return {"error": "filter_column and filter_value are required"}
+        df = pd.read_csv(io.StringIO(file_content))
+        if filter_column not in df.columns:
+            return {"error": f"Column '{filter_column}' not found in the CSV file"}
+        filtered_df = df[df[filter_column] == filter_value]
+        filtered_data = filtered_df.to_dict(orient='records')
+        return {"filtered_data": filtered_data}
+
+    except Exception as e:
+        return {"error": f"An error occurred: {str(e)}"}
