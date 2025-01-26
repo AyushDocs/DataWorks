@@ -1,6 +1,4 @@
-import requests
-import os
-from components.actions import (
+from components.actions.OperationActions import (
     calculate_gold_ticket_sales,
     count_wednesdays,
     extract_credit_card_number,
@@ -13,7 +11,7 @@ from components.actions import (
     sort_contacts,
 )
 
-ALL_TOOLS = [
+OPERATION_TASKS = [
     {
         "type": "function",
         "function": {
@@ -273,7 +271,7 @@ ALL_TOOLS = [
     },
 ]
 
-mappings = {
+OPERATION_TASK_MAPPINGS = {
     "run_script": run_script,
     "format_markdown": format_markdown,
     "count_wednesdays": count_wednesdays,
@@ -285,26 +283,3 @@ mappings = {
     "extract_sender_email": extract_sender_email,
     "calculate_gold_ticket_sales": calculate_gold_ticket_sales,
 }
-
-class GPTQuerier:
-    @staticmethod
-    def query_gpt(user_input: str, formatter) -> dict:
-        try:
-            response = requests.post(
-                "https://aiproxy.sanand.workers.dev/openai/v1/chat/completions",
-                headers={
-                    "Authorization": f"Bearer {os.getenv('AI_API_KEY')}",
-                    "Content-Type": "application/json",
-                },
-                json={
-                    "model": "gpt-4o-mini",
-                    "messages": [{"role": "user", "content": user_input}],
-                    "tools": ALL_TOOLS,
-                    "tool_choice": "required",
-                },
-            )
-            function = response.json()["choices"][0]["message"]["function_call"]
-            mappings[function["name"]](function["argument"])
-            return formatter({"message": "Task executed successfully"}), 200
-        except Exception as e:
-            return formatter({"error": str(e)}), 500
