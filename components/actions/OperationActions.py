@@ -193,7 +193,6 @@ def extract_sender_email(params: dict):
         },
     )
     result = response.json()
-    print (result)    
     sender_email =json.loads(result["choices"][0]["message"]["content"])["email_address"]
     with open(output_file, "w") as f:
         f.write(sender_email)
@@ -204,8 +203,10 @@ def calculate_gold_ticket_sales(params: dict):
     table = params["table"]
     columns = params["columns"]
     output_file = params["output_file"]
+    print(database_file)
     conn = sqlite3.connect(database_file)
     cursor = conn.cursor()
+    print(f"SELECT SUM(units * price) FROM {table} WHERE type = 'Gold'")
     cursor.execute(f"SELECT SUM(units * price) FROM {table} WHERE type = 'Gold'")
     total_sales = cursor.fetchone()[0] or 0
     with open(output_file, "w") as f:

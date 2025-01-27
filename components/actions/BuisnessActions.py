@@ -18,39 +18,43 @@ def fetch_data_from_api(data: dict) -> dict:
     api_url = data.get("api_url")
     headers = data.get("headers", None)
     params = data.get("params", None)
+    output_file=data.get("output_file",None)
 
     response = requests.get(api_url, headers=headers, params=params)
-    return response.json() if response.status_code == 200 else {}
-
+    with open(output_file,'w') as f:
+        f.write(response.text)
+    return response.json()
 
 def clone_repo_and_commit(data: dict) -> bool:
     repo_url = data.get("repo_url")
-    commit_message = data.get("commit_message")
+    commit_message = data.get("commit_message","DataWorks commit")
     branch = data.get("branch", "main")
 
     os.system(f"git clone {repo_url}")
     repo_name = repo_url.split("/")[-1].replace(".git", "")
     os.chdir(repo_name)
     os.system("git checkout " + branch)
+    os.system(f'echo {commit_message} > random_.txt')
+    os.system("git add .")
     os.system(f'git commit -am "{commit_message}"')
-    os.system("git push")
+    os.system("git push -u origin main")
     return True
 
 
 def run_sql_query_on_db(data: dict) -> pd.DataFrame:
     db_type = data.get("db_type")
     query = data.get("query")
-
+    db_connection_string = data.get("db_connection")
+    print(db_connection_string)
     if db_type == "sqlite":
-        conn = sqlite3.connect("database.db")
+        conn = sqlite3.connect(db_connection_string)
     elif db_type == "duckdb":
-        conn = duckdb.connect("database.duckdb")
+        conn = duckdb.connect(db_connection_string)
     else:
         raise ValueError("Unsupported database type. Use 'sqlite' or 'duckdb'.")
 
-    df = pd.read_sql_query(query, conn)
+    pd.read_sql_query(query, conn)
     conn.close()
-    return df
 
 
 def scrape_website(data: dict) -> str:
