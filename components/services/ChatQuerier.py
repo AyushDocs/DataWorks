@@ -1,3 +1,4 @@
+import json
 import requests
 import os
 from components.services.OperationsTaskHandler import (
@@ -13,7 +14,7 @@ from components.services.BuisnessTaskHandler import (
 class ChatQuerier:
     @staticmethod
     def query_gpt(user_input: str, formatter) -> dict:
-        try:
+        # try:
             response = requests.post(
                 "https://aiproxy.sanand.workers.dev/openai/v1/chat/completions",
                 headers={
@@ -27,8 +28,14 @@ class ChatQuerier:
                     "tool_choice": "required",
                 },
             )
-            function = response.json()["choices"][0]["message"]["function_call"]
-            (OPERATION_TASK_MAPPINGS+BUISNESS_TASK_MAPPINGS)[function["name"]](function["argument"])
+            print(response.json())
+            function = response.json()["choices"][0]["message"]["tool_calls"][0]["function"]
+            TASKS = OPERATION_TASK_MAPPINGS|BUISNESS_TASK_MAPPINGS
+            func_name = function["name"]
+            args = json.loads(function["arguments"])
+            func = TASKS[func_name]
+            print(func,type(func))
+            func(args)
             return formatter({"message": "Task executed successfully"}), 200
-        except Exception as e:
-            return formatter({"error": str(e)}), 500
+        # except Exception as e:
+            # return formatter({"error": str(e)}), 500

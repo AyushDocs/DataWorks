@@ -10,7 +10,8 @@ from dateutil.parser import parse
 
 def run_script(params: dict):
     script_url = params['script_url']
-    subprocess.run([f"uv run {script_url} 24f2004275@ds.study.iitm.ac.in"], shell=True)
+    print(f"uv run {script_url} 24f2004275@ds.study.iitm.ac.in")
+    subprocess.run(f"uv run {script_url} 24f2004275@ds.study.iitm.ac.in", shell=True,)
 
 def format_markdown(params: dict):
     input_file = params['input_file']

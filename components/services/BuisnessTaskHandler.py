@@ -53,10 +53,9 @@ BUISNESS_TASKS = [
                     "branch": {
                         "type": "string",
                         "description": "Branch name to check out",
-                        "default": "main",
                     },
                 },
-                "required": ["repo_url", "commit_message"],
+                "required": ["repo_url", "commit_message","branch"],
                 "additionalProperties": False,
             },
             "strict": True,
@@ -125,10 +124,9 @@ BUISNESS_TASKS = [
                     "quality": {
                         "type": "integer",
                         "description": "Quality level for image compression (1-100)",
-                        "default": 85,
                     },
                 },
-                "required": ["input_path", "output_path", "operation"],
+                "required": ["input_path", "output_path", "operation","quality"],
                 "additionalProperties": False,
             },
             "strict": True,

@@ -103,7 +103,7 @@ def convert_markdown_to_html(data: dict) -> bool:
     return True
 
 
-def filter_csv_business_logic(input_data: dict) -> dict:
+def filter_csv(input_data: dict) -> dict:
     try:
         file_content = input_data.get('file_content')
         filter_column = input_data.get('filter_column')
