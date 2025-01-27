@@ -8,7 +8,6 @@ class ReadFileService:
         if not os.path.commonpath([abs_file_path, abs_parent_directory]) == abs_parent_directory:
             return "Error file requested is outside of data directory",401
 
-        print(file_path)
         if not os.path.exists(file_path):
             return "", 404
 

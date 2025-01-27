@@ -28,14 +28,12 @@ class ChatQuerier:
                     "tool_choice": "required",
                 },
             )
-            print(response.json())
             function = response.json()["choices"][0]["message"]["tool_calls"][0]["function"]
             TASKS = OPERATION_TASK_MAPPINGS|BUISNESS_TASK_MAPPINGS
             func_name = function["name"]
             args = json.loads(function["arguments"])
             func = TASKS[func_name]
-            print(func,type(func))
             func(args)
-            return formatter({"message": "Task executed successfully"}), 200
+            return formatter({"message": "Task executed successfully","input":user_input}), 200
         # except Exception as e:
             # return formatter({"error": str(e)}), 500
