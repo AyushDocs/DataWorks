@@ -8,6 +8,7 @@ ENV PYTHONUNBUFFERED=1
 # Set the working directory in the container
 WORKDIR /app
 
+# Install required dependencies and clean up unnecessary files
 # RUN apt-get update && apt-get install -y --no-install-recommends \
 #     build-essential \
 #     gcc \
