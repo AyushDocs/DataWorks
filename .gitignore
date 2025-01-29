@@ -1,3 +1,4 @@
 .env
 log
+my_project_server_permissions.pem
 **/__pycache__/**
