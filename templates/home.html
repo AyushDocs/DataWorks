@@ -1,25 +1,37 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Welcome to DataWorks</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
-</head>
-<body>
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='css/style.css') }}"
+    />
+  </head>
+  <body>
     <div class="container">
-        <h1>Welcome to DataWorks</h1>
-        <p>You should either:</p>
-        <ul>
-            <li><input type="text" name="" id="file-url" placeholder="Enter file-url to access file.(/data/)"></li>
-            <li><button onclick="getFile()">Access file</button></li>
-            <li><textarea name="" id="req-text" rows="10" cols="30"></textarea></li>
-            <li>Or send a request to the server:</li>
-        </ul>
-        <button id="requestButton" onclick="sendRequest()">Send Request to Server</button>
-        <p id="responseMessage"></p>
+      <h1>Welcome to DataWorks</h1>
+      <p>You should either:</p>
+      <ul>
+        <li>
+          <input
+            type="text"
+            name=""
+            id="file-url"
+            placeholder="Enter file-url to access file.(/data/)"
+          />
+        </li>
+        <li><button onclick="getFile()">Access file</button></li>
+        <li><textarea name="" id="req-text" rows="10" cols="30"></textarea></li>
+        <li>Or send a request to the server:</li>
+      </ul>
+      <button id="requestButton" onclick="sendRequest()">
+        Send Request to Server
+      </button>
+      <p id="responseMessage"></p>
     </div>
 
     <script src="{{ url_for('static', filename='js/script.js') }}"></script>
-</body>
+  </body>
 </html>

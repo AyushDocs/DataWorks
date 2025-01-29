@@ -1,4 +1,4 @@
-from components.actions.OperationActions import (
+from DataWorks.components.actions.OperationActions import (
     calculate_gold_ticket_sales,
     count_wednesdays,
     extract_credit_card_number,
@@ -16,145 +16,140 @@ OPERATION_TASKS = [
         "type": "function",
         "function": {
             "name": "run_script",
-            "description": "Run a script from a given URL",
+            "description": "Run a Python script from a given URL (usually a GitHub link) and execute it locally.",
             "parameters": {
                 "type": "object",
                 "properties": {
-                    "script_url": {
+                    "python_script_url": {
                         "type": "string",
-                        "description": "URL of the script to run",
+                        "description": "The URL of the Python script to download and run.",
                     }
                 },
-                "required": ["script_url"],
+                "required": ["python_script_url"],
                 "additionalProperties": False,
             },
-            "strict": True,
         },
     },
     {
         "type": "function",
         "function": {
             "name": "format_markdown",
-            "description": "Format a markdown file using the specified formatter",
+            "description": "Format a markdown file using a specified formatter like Prettier.",
             "parameters": {
                 "type": "object",
                 "properties": {
                     "input_file": {
                         "type": "string",
-                        "description": "Path to the markdown file to format",
+                        "description": "The path to the markdown file to format.",
                     },
                     "formatter": {
                         "type": "string",
-                        "description": "Formatter to use (e.g., Prettier)",
+                        "description": "The formatter to use (e.g., 'Prettier').",
                     },
                 },
                 "required": ["input_file", "formatter"],
                 "additionalProperties": False,
             },
-            "strict": True,
         },
     },
     {
         "type": "function",
         "function": {
             "name": "count_wednesdays",
-            "description": "Count the number of Wednesdays in a file of dates",
+            "description": "Count the number of Wednesdays in a file containing dates.",
             "parameters": {
                 "type": "object",
                 "properties": {
                     "input_file": {
                         "type": "string",
-                        "description": "Path to the file containing dates",
+                        "description": "The path to the file containing dates.",
                     },
                     "output_file": {
                         "type": "string",
-                        "description": "Path to the output file where the count will be saved",
+                        "description": "The path to the output file where the count will be saved.",
                     },
                 },
                 "required": ["input_file", "output_file"],
                 "additionalProperties": False,
             },
-            "strict": True,
         },
     },
     {
         "type": "function",
         "function": {
             "name": "sort_contacts",
-            "description": "Sort contacts from a JSON file based on specified keys",
+            "description": "Sort contacts from a JSON file based on specified keys.",
             "parameters": {
                 "type": "object",
                 "properties": {
                     "input_file": {
                         "type": "string",
-                        "description": "Path to the contacts file",
+                        "description": "The path to the JSON file containing contacts.",
                     },
                     "output_file": {
                         "type": "string",
-                        "description": "Path to the output file to store sorted contacts",
+                        "description": "The path to the output file to store sorted contacts.",
                     },
                     "sort_keys": {
                         "type": "array",
                         "items": {"type": "string"},
-                        "description": "Keys to sort by",
+                        "description": "The keys to sort the contacts by (e.g., ['name', 'email']).",
                     },
                 },
                 "required": ["input_file", "output_file", "sort_keys"],
                 "additionalProperties": False,
             },
-            "strict": True,
         },
     },
     {
         "type": "function",
         "function": {
             "name": "recent_logs",
-            "description": "Retrieve the most recent logs from a specified directory",
+            "description": "Retrieve the most recent logs from a specified directory.",
             "parameters": {
                 "type": "object",
                 "properties": {
                     "input_directory": {
                         "type": "string",
-                        "description": "Directory containing log files",
+                        "description": "The directory containing log files.",
                     },
                     "output_file": {
                         "type": "string",
-                        "description": "Path to the output file to store log entries",
+                        "description": "The path to the output file to store the log entries.",
                     },
                     "limit": {
                         "type": "integer",
-                        "description": "Limit to the number of logs to retrieve",
+                        "description": "The maximum number of log entries to retrieve.",
                     },
                 },
                 "required": ["input_directory", "output_file", "limit"],
                 "additionalProperties": False,
             },
-            "strict": True,
         },
     },
     {
         "type": "function",
         "function": {
             "name": "index_markdown_headers",
-            "description": "Create an index of headers from markdown files in a directory",
+            "description": "Create an index of headers from markdown files in a directory.",
             "parameters": {
                 "type": "object",
                 "properties": {
                     "input_directory": {
                         "type": "string",
-                        "description": "Directory containing markdown files",
+                        "description": "The directory containing markdown files.",
                     },
                     "output_file": {
                         "type": "string",
-                        "description": "Path to the output file to store the index",
+                        "description": "The path to the output file to store the index.",
                     },
                     "file_extension": {
                         "type": "string",
-                        "description": "File extension of markdown files (e.g., .md)",
+                        "description": "The file extension of markdown files (e.g., '.md').",
                     },
                     "header_prefix": {
                         "type": "string",
-                        "description": "Prefix of the headers to index (e.g., '# ')",
+                        "description": "The prefix of the headers to index (e.g., '# ').",
                     },
                 },
                 "required": [
@@ -165,108 +160,103 @@ OPERATION_TASKS = [
                 ],
                 "additionalProperties": False,
             },
-            "strict": True,
         },
     },
     {
         "type": "function",
         "function": {
             "name": "extract_credit_card_number",
-            "description": "Extract the credit card number from an image file",
+            "description": "Extract the credit card number from an image file.",
             "parameters": {
                 "type": "object",
                 "properties": {
                     "input_file": {
                         "type": "string",
-                        "description": "Path to the image file containing the credit card number",
+                        "description": "The path to the image file containing the credit card number.",
                     },
                     "output_file": {
                         "type": "string",
-                        "description": "Path to the output file to store the extracted number",
+                        "description": "The path to the output file to store the extracted number.",
                     },
                 },
                 "required": ["input_file", "output_file"],
                 "additionalProperties": False,
             },
-            "strict": True,
         },
     },
     {
         "type": "function",
         "function": {
             "name": "find_similar_comments",
-            "description": "Find the most similar comments from a list of comments",
+            "description": "Find the most similar comments from a list of comments.",
             "parameters": {
                 "type": "object",
                 "properties": {
                     "input_file": {
                         "type": "string",
-                        "description": "Path to the input file containing comments",
+                        "description": "The path to the input file containing comments.",
                     },
                     "output_file": {
                         "type": "string",
-                        "description": "Path to the output file to store similar comments",
+                        "description": "The path to the output file to store similar comments.",
                     },
                 },
                 "required": ["input_file", "output_file"],
                 "additionalProperties": False,
             },
-            "strict": True,
         },
     },
     {
         "type": "function",
         "function": {
             "name": "extract_sender_email",
-            "description": "Extract the sender's email address from the provided email text",
+            "description": "Extract the sender's email address from the provided email text.",
             "parameters": {
                 "type": "object",
                 "properties": {
                     "input_file": {
                         "type": "string",
-                        "description": "Path to the email text file",
+                        "description": "The path to the email text file.",
                     },
                     "output_file": {
                         "type": "string",
-                        "description": "Path to the output file to store the sender's email",
+                        "description": "The path to the output file to store the sender's email.",
                     },
                 },
                 "required": ["input_file", "output_file"],
                 "additionalProperties": False,
             },
-            "strict": True,
         },
     },
     {
         "type": "function",
         "function": {
             "name": "calculate_gold_ticket_sales",
-            "description": "Calculate total sales of 'Gold' tickets from a database",
+            "description": "Calculate total sales of 'Gold' tickets from a database.",
             "parameters": {
                 "type": "object",
                 "properties": {
                     "database_file": {
                         "type": "string",
-                        "description": "Path to the SQLite database file",
+                        "description": "The path to the SQLite database file.",
                     },
                     "table": {
                         "type": "string",
-                        "description": "Name of the table containing ticket sales data",
+                        "description": "The name of the table containing ticket sales data.",
                     },
                     "columns": {
                         "type": "array",
                         "items": {"type": "string"},
-                        "description": "Columns to select in the query",
+                        "description": "The columns to select in the query (e.g., ['ticket_type', 'sales_amount']).",
                     },
                     "output_file": {
                         "type": "string",
-                        "description": "Path to the output file to store the total sales",
+                        "description": "The path to the output file to store the total sales.",
                     },
                 },
                 "required": ["database_file", "table", "columns", "output_file"],
                 "additionalProperties": False,
             },
-            "strict": True,
         },
     },
 ]

@@ -1,4 +1,4 @@
-from components.actions.BuisnessActions import (
+from DataWorks.components.actions.BuisnessActions import (
     clone_repo_and_commit,
     compress_or_resize_image,
     convert_markdown_to_html,
@@ -14,13 +14,13 @@ BUISNESS_TASKS = [
         "type": "function",
         "function": {
             "name": "fetch_data_from_api",
-            "description": "Fetch data from a given API URL",
+            "description": "Fetch data from a given API URL (must NOT be a Python script URL, especially not from GitHub).",
             "parameters": {
                 "type": "object",
                 "properties": {
                     "api_url": {
                         "type": "string",
-                        "description": "API URL to fetch data from",
+                        "description": "API URL to fetch data from. This must NOT be a Python script URL.",
                     },
                     "headers": {
                         "type": "object",
@@ -35,10 +35,9 @@ BUISNESS_TASKS = [
                         "description": "Path to save the output data",
                     },
                 },
-                "required": ["api_url","output_file"],
+                "required": ["api_url", "output_file"],
                 "additionalProperties": False,
             },
-            "strict": True,
         },
     },
     {
@@ -59,7 +58,7 @@ BUISNESS_TASKS = [
                         "description": "Branch name to check out",
                     },
                 },
-                "required": ["repo_url", "commit_message","branch"],
+                "required": ["repo_url", "commit_message", "branch"],
                 "additionalProperties": False,
             },
             "strict": True,
@@ -78,9 +77,12 @@ BUISNESS_TASKS = [
                         "description": "Type of database (sqlite or duckdb)",
                     },
                     "query": {"type": "string", "description": "SQL query to execute"},
-                    "db_connection": {"type": "string", "description": "SQL connection string"},
+                    "db_connection": {
+                        "type": "string",
+                        "description": "SQL connection string",
+                    },
                 },
-                "required": ["db_type", "query","db_connection"],
+                "required": ["db_type", "query", "db_connection"],
                 "additionalProperties": False,
             },
             "strict": True,
@@ -131,7 +133,7 @@ BUISNESS_TASKS = [
                         "description": "Quality level for image compression (1-100)",
                     },
                 },
-                "required": ["input_path", "output_path", "operation","quality"],
+                "required": ["input_path", "output_path", "operation", "quality"],
                 "additionalProperties": False,
             },
             "strict": True,
