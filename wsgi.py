@@ -4,5 +4,5 @@ from DataWorks.logger import logging
 app = get_app(__name__)
 
 if __name__ == "__main__":
-    logging.info("Starting app on port 5000")
-    app.run(port=5007)
+    logging.info("Starting app on port 8000")
+    app.run(port=8000)

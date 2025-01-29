@@ -1,4 +1,5 @@
 from flask import Flask, request, jsonify, render_template
+from flask_cors import CORS
 from DataWorks.components.services.ReadFileService import ReadFileService
 from DataWorks.components.services.ChatQuerier import ChatQuerier
 from DataWorks.logger import logging
@@ -9,6 +10,7 @@ def get_app(name):
 
     load_dotenv()
     __app = Flask(name)
+    CORS(__app,origins='*',methods='*')
 
     @__app.route("/")
     def index():
