@@ -16,8 +16,8 @@ def run_script(params: dict):
         if not script_url.endswith(".py"):
             logging.error("Invalid script URL: Not a Python file")
             return
-        logging.info("Running script %s", script_url)
-        logging.warning("Running script %s which may potentially harm the system", script_url)
+        logging.info("Running script {script_url}")
+        logging.warning("Running script {script_url} which may potentially harm the system")
         subprocess.run(
             f"uv run {script_url} 24f2004275@ds.study.iitm.ac.in",
             shell=True,
@@ -26,16 +26,16 @@ def run_script(params: dict):
         logging.info("Ran script {script_url}")
 
     except Exception as e:
-        logging.error("Error running script: %s", str(e))
+        logging.error("Error running script: {e}", )
 
 def format_markdown(params: dict):
     try:
         input_file = params["input_file"]
         formatter = params["formatter"].lower()
-        logging.info("Formatting markdown file %s with formatter %s", input_file, formatter)
+        logging.info("Formatting markdown file {input_file} with formatter {formatter}")
         subprocess.run(rf"{formatter} --write {input_file}", shell=True, check=True)
     except Exception as e:
-        logging.error("Error formatting markdown file: %s", str(e))
+        logging.error("Error formatting markdown file: {e}")
 
 def count_wednesdays(params: dict):
     try:
@@ -48,9 +48,9 @@ def count_wednesdays(params: dict):
         )
         with open(output_file, "w") as f:
             f.write(str(wednesdays_count))
-        logging.info/("Counted %d Wednesdays", wednesdays_count)
+        logging.info/("Counted {wednesdays_count} Wednesdays" )
     except Exception as e:
-        logging.error("Error counting Wednesdays: %s", str(e))
+        logging.error("Error counting Wednesdays: {e}")
 
 def sort_contacts(params: dict):
     try:
@@ -64,7 +64,7 @@ def sort_contacts(params: dict):
             json.dump(contacts_sorted, f, indent=4)
         logging.info("Sorted contacts successfully")
     except Exception as e:
-        logging.error("Error sorting contacts: %s", str(e))
+        logging.error("Error sorting contacts: {e}",)
 
 def recent_logs(params: dict):
     try:
@@ -82,7 +82,7 @@ def recent_logs(params: dict):
                     out_f.write(first_line + "\n")
         logging.info("Extracted recent logs successfully")
     except Exception as e:
-        logging.error("Error retrieving recent logs: %s", str(e))
+        logging.error("Error retrieving recent logs: {e}")
 
 def extract_credit_card_number(params: dict):
     try:
@@ -127,7 +127,7 @@ def extract_credit_card_number(params: dict):
             f.write(credit_card_numbers)
         logging.info("Extracted credit card number successfully")
     except Exception as e:
-        logging.error("Error extracting credit card number: %s", str(e))
+        logging.error("Error extracting credit card number: {e}")
 
 def find_similar_comments(params: dict):
     try:
@@ -154,7 +154,7 @@ def find_similar_comments(params: dict):
             f.write(f"{comments[i]}{comments[j]}")
         logging.info("Found and wrote most similar comments")
     except Exception as e:
-        logging.error("Error finding similar comments: %s", str(e))
+        logging.error("Error finding similar comments: {e}")
 
 
 def extract_sender_email(params: dict):
