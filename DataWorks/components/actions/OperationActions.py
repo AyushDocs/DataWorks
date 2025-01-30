@@ -23,13 +23,15 @@ def run_script(params: dict):
             shell=True,
             check=True
         )
+        logging.info("Ran script {script_url}")
+
     except Exception as e:
         logging.error("Error running script: %s", str(e))
 
 def format_markdown(params: dict):
     try:
         input_file = params["input_file"]
-        formatter = params["formatter"]
+        formatter = params["formatter"].lower()
         logging.info("Formatting markdown file %s with formatter %s", input_file, formatter)
         subprocess.run(rf"{formatter} --write {input_file}", shell=True, check=True)
     except Exception as e:
@@ -46,7 +48,7 @@ def count_wednesdays(params: dict):
         )
         with open(output_file, "w") as f:
             f.write(str(wednesdays_count))
-        logging.info("Counted %d Wednesdays", wednesdays_count)
+        logging.info/("Counted %d Wednesdays", wednesdays_count)
     except Exception as e:
         logging.error("Error counting Wednesdays: %s", str(e))
 
@@ -86,7 +88,7 @@ def extract_credit_card_number(params: dict):
     try:
         input_file = params["input_file"]
         output_file = params["output_file"]
-        with open(input_file, "rb") as f:
+        with open(input_file if os.path.exists(input_file) else input_file.replace('-','_'), "rb") as f:
             image_data = f.read()
         ext = os.path.splitext(input_file)[1][1:]
         headers = {

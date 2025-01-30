@@ -8,7 +8,8 @@ import sqlite3
 import duckdb
 import io
 import logging
-
+import shutil
+from urllib.parse import urlparse
 class ImageOperation(Enum):
     COMPRESS = "compress"
     RESIZE = "resize"
@@ -49,8 +50,22 @@ def clone_repo_and_commit(data: dict) -> bool:
         if not repo_url:
             raise ValueError("Repo URL must be specified")
         
-        logging.info(f"Cloning repository: {repo_url}")
-        os.system(f"git clone {repo_url}")
+        GITHUB_TOKEN = os.environ.get("GITHUB_TOKEN")
+
+        if not GITHUB_TOKEN:
+            logging.error("Error: GITHUB_TOKEN is not set!")
+        repo_name = os.path.basename(repo_url).replace(".git", "")
+
+        # Remove existing repo folder if it exists
+        if os.path.exists(repo_name):
+            shutil.rmtree(repo_name)
+
+        # Format authenticated URL
+        parsed_url = urlparse(repo_url)
+        auth_url = f"https://{GITHUB_TOKEN}@{parsed_url.netloc}{parsed_url.path}"
+
+        logging.info(f"Cloning repository: {auth_url}")
+        os.system(f"git clone {auth_url}")
         
         repo_name = repo_url.split("/")[-1].replace(".git", "")
         os.chdir(repo_name)

@@ -16,10 +16,9 @@ class ChatQuerier:
     @staticmethod
     def query_gpt(user_input: str, formatter) -> dict:
         # try:
-        response = requests.post(
-            "https://aiproxy.sanand.workers.dev/openai/v1/chat/completions",
+        response = requests.post("https://aiproxy.sanand.workers.dev/openai/v1/chat/completions",
             headers={
-                "Authorization": f"Bearer {os.getenv('AI_API_KEY')}",
+                "Authorization": f"Bearer {os.environ.get('AI_API_KEY')}",
                 "Content-Type": "application/json",
             },
             json={
@@ -37,7 +36,7 @@ class ChatQuerier:
             args = json.loads(function["arguments"])
             func = TASKS[func_name]
             func(args)
-            logging.info('task is one of the defaut tasks'+user_input+func_name,args)
+            logging.info(f'Task is one of the default tasks: {user_input}, {func_name}, {args}')
             return (
                 formatter(
                     {"message": "Task executed successfully", "input": user_input}
