@@ -17,21 +17,17 @@
         <li>
           <input
             type="text"
-            name=""
             id="file-url"
-            placeholder="Enter file-url to access file.(/data/)"
+            placeholder="Enter file URL (/data/)"
           />
         </li>
-        <li><button onclick="getFile()">Access file</button></li>
-        <li><textarea name="" id="req-text" rows="10" cols="30"></textarea></li>
+        <li><button onclick="getFile()">Access File</button></li>
+        <li><textarea id="req-text" rows="5" placeholder="Enter request..."></textarea></li>
         <li>Or send a request to the server:</li>
       </ul>
-      <button id="requestButton" onclick="sendRequest()">
-        Send Request to Server
-      </button>
+      <button id="requestButton" onclick="sendRequest()">Send Request</button>
       <p id="responseMessage"></p>
     </div>
-
     <script src="{{ url_for('static', filename='js/script.js') }}"></script>
   </body>
 </html>

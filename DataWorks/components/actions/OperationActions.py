@@ -31,9 +31,10 @@ def run_script(params: dict):
 def format_markdown(params: dict):
     try:
         input_file = params["input_file"]
-        formatter = params["formatter"].lower()
-        logging.info(f"Formatting markdown file {input_file} with formatter {formatter}")
-        subprocess.run(rf"{formatter} --write {input_file}", shell=True, check=True)
+        prettier_version = params["prettier_version"]
+        logging.info(f"Formatting markdown file {input_file} with formatter prettier@{prettier_version}")
+        subprocess.run(f" npx prettier@{prettier_version} --write {input_file}", shell=True, check=True)
+        logging.info(f"Successfully formatted markdown file {input_file} with formatter prettier@{prettier_version}")
     except Exception as e:
         logging.error(f"Error formatting markdown file: {e}")
 
@@ -88,6 +89,7 @@ def extract_credit_card_number(params: dict):
     try:
         input_file = params["input_file"]
         output_file = params["output_file"]
+        logging.info(f"USER trying to extract credit card number from {input_file} and put it to {output_file}")
         with open(input_file if os.path.exists(input_file) else input_file.replace('-','_'), "rb") as f:
             image_data = f.read()
         ext = os.path.splitext(input_file)[1][1:]
@@ -121,8 +123,10 @@ def extract_credit_card_number(params: dict):
         )
         response.raise_for_status()
         response_text = response.json()["choices"][0]["message"]["content"]
+        logging.info(f"USER trying to extract credit card number text of file loaded,{response_text}")
         cc_regex = r"\b(?:\d{4}[- ]?){3}\d{4}|\b\d{13,19}\b"
         credit_card_numbers = re.findall(cc_regex, response_text)[0]
+        logging.info("credit card number found")
         with open(output_file, "w") as f:
             f.write(credit_card_numbers)
         logging.info("Extracted credit card number successfully")

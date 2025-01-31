@@ -42,12 +42,12 @@ OPERATION_TASKS = [
                         "type": "string",
                         "description": "The path to the markdown file to format.",
                     },
-                    "formatter": {
+                    "formatter_version": {
                         "type": "string",
-                        "description": "The formatter to use (e.g., 'Prettier').",
+                        "description": "The version of prettier to use, if not given supply a default prettier version",
                     },
                 },
-                "required": ["input_file", "formatter"],
+                "required": ["input_file"],
                 "additionalProperties": False,
             },
         },
