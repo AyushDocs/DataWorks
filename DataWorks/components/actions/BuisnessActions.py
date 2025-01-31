@@ -50,7 +50,7 @@ def clone_repo_and_commit(data: dict) -> bool:
         if not repo_url:
             raise ValueError("Repo URL must be specified")
         
-        GITHUB_TOKEN = os.environ.get("GITHUB_TOKEN")
+        GITHUB_TOKEN = os.environ.get("PAT_TOKEN_GITHUB")
 
         if not GITHUB_TOKEN:
             logging.error("Error: GITHUB_TOKEN is not set!")
