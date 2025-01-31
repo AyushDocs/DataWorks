@@ -21,7 +21,7 @@ class ChatQuerier:
             response = requests.post(
                 "https://aiproxy.sanand.workers.dev/openai/v1/chat/completions",
                 headers={
-                    "Authorization": f"Bearer {os.environ.get('AI_API_KEY', '')}",
+                    "Authorization": f"Bearer {os.environ.get('AIPROXY_TOKEN', '')}",
                     "Content-Type": "application/json",
                 },
                 json={

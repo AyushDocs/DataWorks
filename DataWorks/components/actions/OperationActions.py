@@ -95,7 +95,7 @@ def extract_credit_card_number(params: dict):
         ext = os.path.splitext(input_file)[1][1:]
         headers = {
             "Content-Type": "application/json",
-            "Authorization": f"Bearer {os.environ.get('AI_API_KEY')}",
+            "Authorization": f"Bearer {os.environ.get('AIPROXY_TOKEN')}",
         }
         base64_image = base64.b64encode(image_data).decode("utf-8")
         data = {
@@ -141,7 +141,7 @@ def find_similar_comments(params: dict):
             comments = f.readlines()
         url = "https://aiproxy.sanand.workers.dev/openai/v1/embeddings"
         headers = {
-            "Authorization": f"Bearer {os.environ.get('AI_API_KEY')}",
+            "Authorization": f"Bearer {os.environ.get('AIPROXY_TOKEN')}",
             "Content-Type": "application/json",
         }
         data = {"model": "text-embedding-3-small", "input": comments}
@@ -171,7 +171,7 @@ def extract_sender_email(params: dict):
 
         response = requests.post(
             url="https://aiproxy.sanand.workers.dev/openai/v1/chat/completions",
-            headers={"Authorization": f"Bearer {os.environ.get('AI_API_KEY')}"},
+            headers={"Authorization": f"Bearer {os.environ.get('AIPROXY_TOKEN')}"},
             json={
                 "model": "gpt-4o-mini",
                 "messages": [

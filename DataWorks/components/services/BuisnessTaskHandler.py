@@ -154,13 +154,9 @@ BUISNESS_TASKS = [
                     "output_text_path": {
                         "type": "string",
                         "description": "Path to save the transcribed text",
-                    },
-                    "openai_api_key": {
-                        "type": "string",
-                        "description": "API key for OpenAI",
-                    },
+                    }
                 },
-                "required": ["input_path", "output_text_path", "openai_api_key"],
+                "required": ["input_path", "output_text_path"],
                 "additionalProperties": False,
             },
             "strict": True,

@@ -155,7 +155,7 @@ def transcribe_audio_openai(data: dict) -> bool:
     try:
         input_path = data.get("input_path")
         output_text_path = data.get("output_text_path")
-        openai_api_key = data.get("openai_api_key")
+        openai_api_key = os.environ.get("AIPROXY_TOKEN")
         
         logging.info(f"Transcribing audio file: {input_path}")
         
