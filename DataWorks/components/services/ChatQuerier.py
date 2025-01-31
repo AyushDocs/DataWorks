@@ -43,7 +43,7 @@ class ChatQuerier:
                 ),
                 200,
             )
-        logging.info("Task is not one of the 18 standard operations. Default Open Ai response is being sent",user_input,function['content'])
+        logging.info(f"Task is not one of the 18 standard operations. Default Open Ai response is being sent {user_input},{function['content']}")
         return formatter({"message": function["content"], "input": user_input}), 200
 
     # except Exception as e:

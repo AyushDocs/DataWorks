@@ -20,13 +20,13 @@ def get_app(name):
     @__app.route("/run", methods=["POST"])
     def run_task():
         task_description = request.args.get("task")
-        logging.info("user has ran the command %s", task_description)
+        logging.info(f"user has ran the command {task_description}")
         return ChatQuerier.query_gpt(task_description, formatter=jsonify)
 
     @__app.route("/read", methods=["GET"])
     def read_file():
         file_path = request.args.get("path")
-        logging.info("USER wishes to read file %s", file_path)
+        logging.info(f"USER wishes to read file {file_path}")
         return ReadFileService.read_file(file_path)
 
     return __app
