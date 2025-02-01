@@ -63,9 +63,9 @@ class ChatQuerier:
                 if func_name in TASKS:
                     logging.info(f"Executing task: {func_name} with args: {args}")
 
-                    TASKS[func_name](args)
+                    response=TASKS[func_name](args)
                     return formatter(
-                        {"message": "Task executed successfully", "input": user_input}
+                        {"message": "Task executed successfully", "input": user_input,"response": response}
                     ), 200
 
             logging.info(f"Default AI response sent: {function.get('content', 'No response')}")
