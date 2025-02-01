@@ -1,18 +1,12 @@
-import base64
-import requests
 import os
 import json
 import subprocess
-from sklearn.metrics.pairwise import cosine_similarity
-import re
 import sqlite3
-import numpy as np
 from dateutil.parser import parse
 from DataWorks.logger import logging
-import sys
-from DataWorks.exception import SignException
 from DataWorks.components.actions.Operations.CreditCardExtractor import CreditCardExtractor
 from DataWorks.components.actions.Operations.SenderEmailExtractor import SenderEmailExtractor
+from DataWorks.components.actions.Operations.SimilarCommentFinder import SimilarCommentFinder
 
 def run_script(params: dict):
     script_url = params["python_script_url"]
@@ -81,26 +75,7 @@ def extract_credit_card_number(params: dict):
 def find_similar_comments(params: dict):
     input_file = params["input_file"]
     output_file = params["output_file"]
-    with open(input_file, "r") as f:
-        comments = f.readlines()
-    url = "https://aiproxy.sanand.workers.dev/openai/v1/embeddings"
-    headers = {
-        "Authorization": f"Bearer {os.environ.get('AIPROXY_TOKEN')}",
-        "Content-Type": "application/json",
-    }
-    data = {"model": "text-embedding-3-small", "input": comments}
-    response = requests.post(url, headers=headers, json=data)
-    response.raise_for_status()
-    response_json = response.json()
-    embeddings = [item["embedding"] for item in response_json["data"]]
-    if not embeddings:
-        return None, None, None
-    similarity_matrix = cosine_similarity(embeddings)
-    np.fill_diagonal(similarity_matrix, -np.inf)
-    i, j = np.unravel_index(np.argmax(similarity_matrix), similarity_matrix.shape)
-    with open(output_file, "w") as f:
-        f.write(f"{comments[i]}{comments[j]}")
-    logging.info("Found and wrote most similar comments")
+    SimilarCommentFinder(input_file, output_file).find_comments()
 
 def extract_sender_email(params: dict):
     input_file = params["input_file"]
