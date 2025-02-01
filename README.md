@@ -15,7 +15,7 @@ DataWorks Solutions processes large volumes of log files, reports, and code arti
 ## RUN PROJECT
 
 ```bash
-docker run -e AIPROXYTOKEN=your_actual_token -p 8000:8000 ayushdocs/dataworks
+docker run -e AIPROXY_TOKEN=your_actual_token -p 8000:8000 ayushdocs/dataworks
 ```
 
 ## API Endpoints
