@@ -1,4 +1,4 @@
-from DataWorks.components.actions.BuisnessActions import (
+from DataWorks.components.actions.Buisness import (
     clone_repo_and_commit,
     compress_or_resize_image,
     convert_markdown_to_html,

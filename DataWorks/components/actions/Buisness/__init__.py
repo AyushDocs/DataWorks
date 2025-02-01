@@ -10,8 +10,6 @@ import io
 import logging
 import shutil
 from urllib.parse import urlparse
-import sys
-from DataWorks.exception import SignException
 
 class ImageOperation(Enum):
     COMPRESS = "compress"
