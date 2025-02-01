@@ -17,6 +17,7 @@ from DataWorks.components.actions.Operations.PythonScriptRunner import (
 from DataWorks.components.actions.Operations.WednesdayCounter import WednesdayCounter
 from DataWorks.components.actions.Operations.GoldTicketSalesCalculator import GoldTicketSalesCalculator
 from DataWorks.components.actions.Operations.MarkdownIndexer import MarkdownIndexer
+from DataWorks.components.actions.Operations.ContactsSorter import ContactsSorter
 
 def run_script(params: dict):
     PythonScriptRunner(**params).execute()
@@ -31,15 +32,7 @@ def count_wednesdays(params: dict):
 
 
 def sort_contacts(params: dict):
-    input_file = params["input_file"]
-    output_file = params["output_file"]
-    sort_keys = params["sort_keys"]
-    with open(input_file, "r") as f:
-        contacts = json.load(f)
-    contacts_sorted = sorted(contacts, key=lambda x: tuple(x[key] for key in sort_keys))
-    with open(output_file, "w") as f:
-        json.dump(contacts_sorted, f, indent=4)
-    logging.info("Sorted contacts successfully")
+    ContactsSorter(**params).sort()
 
 
 def recent_logs(params: dict):
