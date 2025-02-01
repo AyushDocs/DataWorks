@@ -1,6 +1,5 @@
 import os
 import json
-import sqlite3
 from DataWorks.logger import logging
 from DataWorks.components.actions.Operations.CreditCardExtractor import (
     CreditCardExtractor,
@@ -16,6 +15,7 @@ from DataWorks.components.actions.Operations.PythonScriptRunner import (
     PythonScriptRunner,
 )
 from DataWorks.components.actions.Operations.WednesdayCounter import WednesdayCounter
+from DataWorks.components.actions.Operations.GoldTicketSalesCalculator import GoldTicketSalesCalculator
 
 
 def run_script(params: dict):
@@ -112,19 +112,4 @@ def index_markdown_headers(params: dict):
 
 
 def calculate_gold_ticket_sales(params: dict):
-    database_file = params["database_file"]
-    table = params["table"]
-    output_file = params["output_file"]
-
-    conn = sqlite3.connect(database_file)
-    cursor = conn.cursor()
-    query = f"SELECT SUM(units * price) FROM {table} WHERE type = 'Gold'"
-    logging.info(f"Executing query: {query}")
-    cursor.execute(query)
-    total_sales = cursor.fetchone()[0] or 0
-
-    with open(output_file, "w") as f:
-        f.write(str(total_sales))
-
-    logging.info(f"Successfully calculated gold ticket sales: {total_sales}")
-    conn.close()
+    GoldTicketSalesCalculator(**params).calculate()
