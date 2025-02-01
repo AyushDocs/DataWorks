@@ -2,22 +2,20 @@ import json
 import requests
 import os
 from DataWorks.logger import logging
+from dataclasses import dataclass
 
-
+@dataclass
 class SenderEmailExtractor:
-    def __init__(self, input_file, output_file):
-        self.input_file = input_file
-        self.output_file = output_file
+    input_file:str
+    output_file:str
 
     def extract(self):
-        input_file = self.input_file
-        output_file = self.output_file
-        with open(input_file, "r") as f:
+        with open(self.input_file, "r") as f:
             email_text = f.read()
 
         sender_email = self.get_email_from_file(email_text)
 
-        with open(output_file, "w") as f:
+        with open(self.output_file, "w") as f:
             f.write(sender_email)
 
         logging.info(f"Successfully extracted sender email: {sender_email}")

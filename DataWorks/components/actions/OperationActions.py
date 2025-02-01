@@ -65,19 +65,13 @@ def recent_logs(params: dict):
     logging.info("Extracted recent logs successfully")
 
 def extract_credit_card_number(params: dict):
-    input_file = params["input_file"]
-    output_file = params["output_file"]
-    CreditCardExtractor(input_file, output_file).extract_credit_card_number()
+    CreditCardExtractor(**params).extract_credit_card_number()
     
 def find_similar_comments(params: dict):
-    input_file = params["input_file"]
-    output_file = params["output_file"]
-    SimilarCommentFinder(input_file, output_file).find_comments()
+    SimilarCommentFinder(**params).find_comments()
 
 def extract_sender_email(params: dict):
-    input_file = params["input_file"]
-    output_file = params["output_file"]
-    SenderEmailExtractor(input_file,output_file).extract()
+    SenderEmailExtractor(**params).extract()
 
 
 def index_markdown_headers(params: dict):

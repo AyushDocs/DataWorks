@@ -3,15 +3,16 @@ import requests
 from sklearn.metrics.pairwise import cosine_similarity
 import numpy as np
 from DataWorks.logger import logging
-class SimilarCommentFinder:
-    def __init__(self,input_file,output_file):
-        self.input_file = input_file
-        self.output_file = output_file
-    def find_comments(self):
-        output_file = self.output_file
+from dataclasses import dataclass
 
+@dataclass
+class SimilarCommentFinder:
+    input_file:str
+    output_file:str
+
+    def find_comments(self):
         comm1,comm2 = self.get_most_similar_two_comments()
-        with open(output_file, "w") as f:
+        with open(self.output_file, "w") as f:
             f.write(f"{comm1}{comm2}")
         logging.info("Found and wrote most similar comments")
 

@@ -3,12 +3,12 @@ import os
 import base64
 import requests
 import re
+from dataclasses import dataclass
 
+@dataclass
 class CreditCardExtractor:
-    def __init__(self,input_file,output_file):
-        self.input_file = input_file
-        self.output_file = output_file
-        pass
+    input_file:str
+    output_file:str
     def extract(self):
         input_file = self.input_file
         output_file = self.output_file
@@ -56,4 +56,4 @@ class CreditCardExtractor:
             json=data,
         )
         response.raise_for_status()
-        response_text = response.json()["choices"][0]["message"]["content"]
+        return response.json()["choices"][0]["message"]["content"]
