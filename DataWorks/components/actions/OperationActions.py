@@ -1,6 +1,3 @@
-import os
-import json
-from DataWorks.logger import logging
 from DataWorks.components.actions.Operations.CreditCardExtractor import (
     CreditCardExtractor,
 )
