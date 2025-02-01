@@ -10,7 +10,8 @@ from DataWorks.components.services.BuisnessTaskHandler import (
     BUISNESS_TASK_MAPPINGS,
 )
 from DataWorks.logger import logging
-
+from DataWorks.exception import SignException
+import sys
 
 class ChatQuerier:
     @staticmethod
@@ -51,13 +52,17 @@ class ChatQuerier:
 
             if "tool_calls" in function:
                 function_call = function["tool_calls"][0].get("function", {})
-
                 TASKS = OPERATION_TASK_MAPPINGS | BUISNESS_TASK_MAPPINGS
-                func_name = function_call.get("name")
+                try:
+                    func_name = function_call.get("name")
+                except Exception as e:
+                    raise SignException(e,sys)
+                
                 args = json.loads(function_call.get("arguments", "{}"))
 
                 if func_name in TASKS:
                     logging.info(f"Executing task: {func_name} with args: {args}")
+
                     TASKS[func_name](args)
                     return formatter(
                         {"message": "Task executed successfully", "input": user_input}
