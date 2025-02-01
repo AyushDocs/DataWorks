@@ -15,12 +15,14 @@ DataWorks Solutions processes large volumes of log files, reports, and code arti
 ## RUN PROJECT
 
 ```bash
-docker run -e AIPROXYTOKEN=your_actual_token -p 5000:5000 DataWorks
+docker run -e AIPROXYTOKEN=your_actual_token -p 8000:8000 ayushdocs/dataworks
 ```
 
 ## API Endpoints
 
-### `POST /run?task=<task description>`
+```bash
+POST /run?task=<task description>
+```
 
 Executes a plain-English task. The agent will parse the task description, execute one or more steps, and produce the final output.
 
@@ -28,8 +30,10 @@ Executes a plain-English task. The agent will parse the task description, execut
 - **Failure (400 Bad Request)**: Invalid task description.
 - **Failure (500 Internal Server Error)**: Task execution failed due to an agent error.
 
-#### Example Request
 
 ```bash
-POST /run?task=Install+uv+and+run+datagen.py+with+${user.email}
+POST /read?path=<file_path>
 ```
+- **Success (200 OK)**: Reads data from server and displays it 
+- **Forbidden (401 Forbidden)**: Reads data out of /data directory
+- **Not Found (404 Internal Server Error)**: File not found
