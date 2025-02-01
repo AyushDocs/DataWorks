@@ -1,11 +1,11 @@
-from components.actions.Buisness.ApiDataFetcher import ApiDataFetcher
-from components.actions.Buisness.GitRepoManager import GitRepoManager
-from components.actions.Buisness.SQLQueryRunner import SQLQueryRunner
-from components.actions.Buisness.WebsiteScraper import WebsiteScraper
-from components.actions.Buisness.ImageProcessor import ImageProcessor
-from components.actions.Buisness.OpenAITranscriber import OpenAITranscriber
-from components.actions.Buisness.MarkdownConverter import MarkdownConverter
-from components.actions.Buisness.CSVFilter import CSVFilter
+from DataWorks.components.actions.Buisness.ApiDataFetcher import ApiDataFetcher
+from DataWorks.components.actions.Buisness.GitRepoManager import GitRepoManager
+from DataWorks.components.actions.Buisness.SQLQueryRunner import SQLQueryRunner
+from DataWorks.components.actions.Buisness.WebsiteScraper import WebsiteScraper
+from DataWorks.components.actions.Buisness.ImageProcessor import ImageProcessor
+from DataWorks.components.actions.Buisness.OpenAITranscriber import OpenAITranscriber
+from DataWorks.components.actions.Buisness.MarkdownConverter import MarkdownConverter
+from DataWorks.components.actions.Buisness.CSVFilter import CSVFilter
 
 
 def fetch_data_from_api(data: dict):
