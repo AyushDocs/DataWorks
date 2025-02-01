@@ -18,6 +18,7 @@ from DataWorks.components.actions.Operations.WednesdayCounter import WednesdayCo
 from DataWorks.components.actions.Operations.GoldTicketSalesCalculator import GoldTicketSalesCalculator
 from DataWorks.components.actions.Operations.MarkdownIndexer import MarkdownIndexer
 from DataWorks.components.actions.Operations.ContactsSorter import ContactsSorter
+from DataWorks.components.actions.Operations.RecentLogsWriter import RecentLogsWriter
 
 def run_script(params: dict):
     PythonScriptRunner(**params).execute()
@@ -36,19 +37,7 @@ def sort_contacts(params: dict):
 
 
 def recent_logs(params: dict):
-    input_directory = params["input_directory"]
-    output_file = params["output_file"]
-    limit = params["limit"]
-    log_files = [f for f in os.listdir(input_directory) if f.endswith(".log")]
-    log_files.sort(
-        key=lambda f: os.path.getmtime(os.path.join(input_directory, f)), reverse=True
-    )
-    with open(output_file, "w") as out_f:
-        for log_file in log_files[:limit]:
-            with open(os.path.join(input_directory, log_file), "r") as f:
-                first_line = f.readline().strip()
-                out_f.write(first_line + "\n")
-    logging.info("Extracted recent logs successfully")
+    RecentLogsWriter(**params).write()
 
 
 def extract_credit_card_number(params: dict):
