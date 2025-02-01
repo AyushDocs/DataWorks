@@ -7,6 +7,7 @@ from DataWorks.logger import logging
 from DataWorks.components.actions.Operations.CreditCardExtractor import CreditCardExtractor
 from DataWorks.components.actions.Operations.SenderEmailExtractor import SenderEmailExtractor
 from DataWorks.components.actions.Operations.SimilarCommentFinder import SimilarCommentFinder
+from DataWorks.components.actions.Operations.MarkdownFormatter import MarkdownFormatter
 
 def run_script(params: dict):
     script_url = params["python_script_url"]
@@ -23,11 +24,7 @@ def run_script(params: dict):
     logging.info(f"Ran script {script_url}")
 
 def format_markdown(params: dict):
-    input_file = params["input_file"]
-    prettier_version = params["prettier_version"]
-    logging.info(f"Formatting markdown file {input_file} with formatter prettier@{prettier_version}")
-    subprocess.run(f" npx prettier@{prettier_version} --write {input_file}", shell=True, check=True)
-    logging.info(f"Successfully formatted markdown file {input_file} with formatter prettier@{prettier_version}")
+    MarkdownFormatter(**params).format()
 
 def count_wednesdays(params: dict):
     input_file = params["input_file"]
