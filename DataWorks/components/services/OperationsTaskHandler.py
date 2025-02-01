@@ -1,4 +1,4 @@
-from DataWorks.components.actions.OperationActions import (
+from DataWorks.components.actions.Operations import (
     calculate_gold_ticket_sales,
     count_wednesdays,
     extract_credit_card_number,
