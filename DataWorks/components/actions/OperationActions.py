@@ -16,7 +16,7 @@ from DataWorks.components.actions.Operations.PythonScriptRunner import (
 )
 from DataWorks.components.actions.Operations.WednesdayCounter import WednesdayCounter
 from DataWorks.components.actions.Operations.GoldTicketSalesCalculator import GoldTicketSalesCalculator
-
+from DataWorks.components.actions.Operations.MarkdownIndexer import MarkdownIndexer
 
 def run_script(params: dict):
     PythonScriptRunner(**params).execute()
@@ -71,44 +71,7 @@ def extract_sender_email(params: dict):
 
 
 def index_markdown_headers(params: dict):
-    # Extract parameters
-    input_directory = params.get("input_directory")
-    output_file = params.get("output_file")
-    file_extension = params.get("file_extension")
-    header_prefix = params.get("header_prefix")
-
-    # Validate required parameters
-    if not all([input_directory, output_file, file_extension, header_prefix]):
-        raise ValueError("Missing required parameters in 'params' dictionary")
-
-    logging.info(f"Indexing markdown headers in directory: {input_directory}")
-
-    # Initialize index dictionary
-    index = {}
-
-    # Find all markdown files in the input directory
-    markdown_files = [
-        f for f in os.listdir(input_directory) if f.endswith(file_extension)
-    ]
-    logging.info(f"Found {len(markdown_files)} markdown files to process")
-
-    # Process each markdown file
-    for file in markdown_files:
-        file_path = os.path.join(input_directory, file)
-        with open(file_path, "r") as f:
-            for line in f:
-                if line.startswith(header_prefix):
-                    title = line.strip().lstrip("#").strip()
-                    index[file] = title
-                    logging.info(f"Indexed file: {file} with header: {title}")
-                    break
-
-    # Write the index to the output file
-    with open(output_file, "w") as out_f:
-        json.dump(index, out_f, indent=4)
-
-    logging.info(f"Index successfully written to {output_file}")
-    return True
+    MarkdownIndexer(**params).index()
 
 
 def calculate_gold_ticket_sales(params: dict):
